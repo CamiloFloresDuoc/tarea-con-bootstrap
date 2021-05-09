@@ -8,6 +8,13 @@
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/miestilo.css">
         <link rel="icon" type="image/png" href="img/logo.jpg" />
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+
     </head>
     <body>
         <div class="container">
@@ -82,19 +89,19 @@
                 </section>
                 <div class="row justify-content-center pb-3">
                     <div class="col">
-                        <form class="contacto" action="" method="POST" name="contacto">
+                        <form class="contacto" action="" method="POST" name="contacto" id="contacto">
                             <div class="row">
                                 <div class="col-1"></div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="nombrecomp">Nombre</label>
-                                        <input name="Nombre" class="form-control" type="text" placeholder="Nombre completo" id="nombrecomp">
+                                        <input name="nombrecomp" class="form-control" type="text" placeholder="Nombre completo" id="nombrecomp">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="miemail">Email</label>
-                                        <input type="email" class="form-control" name="mail" placeholder="nombre@mail.com" id="miemail">
+                                        <input type="email" class="form-control" name="miemail" placeholder="nombre@mail.com" id="miemail">
                                     </div>   
                                 </div>
                                 <div class="col-1"></div>
@@ -158,7 +165,62 @@
                     </div>
                 </div>
             </div>
-            
+<!--Script jquery-->
+            <script>
+                $(document).ready(function() {
+                    $("#contacto").validate({
+                        rules: {
+                            nombrecomp : {
+                                required: true,
+                                minlength: 8
+                            },
+                            fono: {
+                                required: false,
+                                number: true,
+                                minlength: 9
+                            },
+                            miemail: {
+                                required: true,
+                                email: true
+                            },
+                            residencia: {
+                                required: true
+                            },
+                            weight: {
+                                required: {
+                                depends: function(elem) {
+                                    return $("#age").val() > 50
+                                }
+                                },
+                                number: true,
+                                min: 0
+                            }
+                        },
+                        messages : {
+                            nombrecomp: {
+                                minlength: "Nombre debe tener al menos 8 carácteres"
+                            },
+                            fono: {
+                                required: "Opcional",
+                                number: "Debes ingresar un número",
+                                minlength: "Número debe tener al menos 9 dígitos"
+                            },
+                            miemail: {
+                                email: "Email debe ser del formato: abc@dominio.com"
+                            },
+                            residencia: {
+                                required: "Debe seleccionar una ciudad"
+                            },
+                            weight: {
+                                required: "People with age over 50 have to enter their weight",
+                                number: "Please enter your weight as a numerical value"
+                            }
+                        }
+                    });
+                    
+                
+                    });
+            </script>
 <!--footer-->
             <footer class="row">
                 <div class="col-8">
